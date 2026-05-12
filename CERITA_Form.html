@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CERITA — Curahan Emosi Remaja</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #080808;
+    --black2: #111111;
+    --black3: #1a1a1a;
+    --gold: #c9a84c;
+    --gold-light: #e8c96d;
+    --gold-dim: rgba(201,168,76,0.15);
+    --gold-border: rgba(201,168,76,0.3);
+    --white: #f0ebe0;
+    --muted: #7a7060;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--sans);
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 64px 0 48px;
+    text-align: center;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    margin: 32px auto 0;
+  }
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 8vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    color: var(--white);
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    margin-top: 16px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .hero-desc {
+    margin-top: 20px;
+    font-size: 0.95rem;
+    color: #9a9080;
+    line-height: 1.7;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── PROGRESS ── */
+  .progress-bar-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 12px 0;
+    background: linear-gradient(to bottom, var(--black) 70%, transparent);
+  }
+  .progress-track {
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+  .progress-label {
+    font-size: 0.68rem;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    margin-top: 6px;
+    text-align: right;
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; animation: fadeUp 0.5s ease forwards; }
+  .page.active { display: block; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SECTION LABEL ── */
+  .section-title {
+    font-family: var(--serif);
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-note {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 32px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FIELD ── */
+  .field {
+    margin-bottom: 28px;
+  }
+  .field label {
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  .field label .req { color: #c0504a; margin-left: 3px; }
+
+  /* text input */
+  .field input[type="text"],
+  .field textarea,
+  .field select {
+    width: 100%;
+    background: var(--black2);
+    border: 1px solid var(--gold-border);
+    border-radius: 4px;
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 300;
+    padding: 14px 16px;
+    transition: border-color 0.2s, background 0.2s;
+    outline: none;
+    appearance: none;
+  }
+  .field input[type="text"]:focus,
+  .field textarea:focus,
+  .field select:focus {
+    border-color: var(--gold);
+    background: #141410;
+  }
+  .field textarea {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.6;
+  }
+  .field select option { background: #111; }
+
+  /* radio / checkbox group */
+  .choices { display: flex; flex-direction: column; gap: 8px; }
+  .choice-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    background: var(--black2);
+  }
+  .choice-item:hover { border-color: var(--gold-border); background: #141410; }
+  .choice-item input[type="radio"] { display: none; }
+  .choice-dot {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--gold-border);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s;
+  }
+  .choice-dot::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .choice-item.selected {
+    border-color: var(--gold);
+    background: var(--gold-dim);
+  }
+  .choice-item.selected .choice-dot { border-color: var(--gold); }
+  .choice-item.selected .choice-dot::after { opacity: 1; }
+  .choice-text { font-size: 0.88rem; line-height: 1.5; color: #ccc5b0; }
+  .choice-item.selected .choice-text { color: var(--white); }
+
+  /* divider */
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(201,168,76,0.12);
+    margin: 36px 0;
+  }
+
+  /* ── BUTTONS ── */
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+    align-items: center;
+  }
+  .btn {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 14px 32px;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .btn-ghost:hover { border-color: var(--gold-border); color: var(--gold); }
+
+  /* ── SUCCESS PAGE ── */
+  .success {
+    display: none;
+    text-align: center;
+    padding: 80px 0;
+    animation: fadeUp 0.6s ease forwards;
+  }
+  .success.show { display: block; }
+  .success-icon {
+    font-size: 3rem;
+    margin-bottom: 24px;
+  }
+  .success h2 {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+  .success h2 em { font-style: italic; color: var(--gold); }
+  .success p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+  .gold-line {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 24px auto;
+  }
+
+  /* error */
+  .err-msg {
+    color: #c0504a;
+    font-size: 0.75rem;
+    margin-top: 6px;
+    display: none;
+    letter-spacing: 0.04em;
+  }
+  .field.error input,
+  .field.error textarea,
+  .field.error select,
+  .field.error .choices {
+    border-color: #c0504a !important;
+  }
+  .field.error .err-msg { display: block; }
+
+  /* loading */
+  .btn-primary.loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  .btn-primary.loading::after {
+    content: ' ···';
+    animation: dots 1s infinite;
+  }
+  @keyframes dots {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  @media (max-width: 480px) {
+    .hero { padding: 40px 0 32px; }
+    .btn-row { flex-direction: column; }
+    .btn { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eyebrow">Kelas 11 · SMA · 2026</div>
+    <h1>CERITA</h1>
+    <div class="hero-sub">Curahan · Emosi · Remaja · Inspirasi · Tujuan · Asa</div>
+    <p class="hero-desc">Ini bukan ujian. Nggak ada jawaban benar atau salah. Cuma kamu, jujur sama diri sendiri.</p>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar-wrap">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel">Halaman 1 dari 2</div>
+  </div>
+
+  <!-- ══════════════ PAGE 1 ══════════════ -->
+  <div class="page active" id="page1">
+
+    <div class="section-title">Siapa <em>kamu?</em></div>
+    <div class="section-note">Yang biasa dipanggil temen-temen</div>
+
+    <div class="field" id="f-nama">
+      <label>Nama panggilan <span class="req">*</span></label>
+      <input type="text" id="nama" placeholder="Tulis nama panggilanmu...">
+      <div class="err-msg">Nama wajib diisi ya!</div>
+    </div>
+
+    <div class="field" id="f-kelas">
+      <label>Kelas <span class="req">*</span></label>
+      <select id="kelas">
+        <option value="">— Pilih kelasmu —</option>
+        <option>XI.1(11.1)</option>
+        <option>XI.2(11.2)</option>
+        <option>XI.3(11.3)</option>
+        <option>XI.4(11.4)</option>
+        <option>XI.5(11.5)</option>
+        <option>XI.6(11.6)</option>
+        <option>XI.7(11.7)</option>
+        <option>XI.8(11.8)</option>
+        <option>XI.9(11.9)</option>
+        <option>XI.10(11.10)</option>
+        <option>XI.11(11.11)</option>
+        <option>XI.12(11.12)</option>
+      </select>
+      <div class="err-msg">Pilih kelasmu dulu!</div>
+    </div>
+
+    <hr class="divider">
+    <div class="section-title">Di dalam <em>kepala</em></div>
+    <div class="section-note">Jujur aja, nggak ada yang judge</div>
+
+    <div class="field" id="f-q1">
+      <label>Apa yang paling sering bikin kamu kepikiran belakangan ini?</label>
+      <div class="choices" data-name="q1">
+        <label class="choice-item"><input type="radio" name="q1" value="Tugas sekolah yang kayak nggak ada habisnya, kadang bikin takut ketinggalan."><span class="choice-dot"></span><span class="choice-text">Tugas sekolah yang kayak nggak ada habisnya, kadang bikin takut ketinggalan.</span></label>
+        <label class="choice-item"><input type="radio" name="q1" value="Kegiatan organisasi atau ekskul, soalnya sering bentrok sama waktu belajar."><span class="choice-dot"></span><span class="choice-text">Kegiatan organisasi atau ekskul, soalnya sering bentrok sama waktu belajar.</span></label>
+        <label class="choice-item"><input type="radio" name="q1" value="Teman-teman, kadang ada drama kecil atau salah paham yang bikin kepikiran terus dan susah fokus ke hal lain."><span class="choice-dot"></span><span class="choice-text">Teman-teman, kadang ada drama kecil atau salah paham.</span></label>
+        <label class="choice-item"><input type="radio" name="q1" value="Urusan perasaan, suka diam-diam sama seseorang tapi bingung mau ngungkapin, takut ditolak… jadi cuma bisa lihat dari jauh."><span class="choice-dot"></span><span class="choice-text">Urusan perasaan — suka seseorang tapi bingung ngungkapinnya.</span></label>
+        <label class="choice-item"><input type="radio" name="q1" value="Pikiran soal masa depan, takut harus ngapain nanti dan takut nggak bisa ngejar cita-cita setelah lulus."><span class="choice-dot"></span><span class="choice-text">Pikiran soal masa depan, takut nggak bisa ngejar cita-cita.</span></label>
+      </div>
+    </div>
+
+    <div class="field" id="f-q2">
+      <label>Pernah nggak kamu ngerasa capek banget gara-gara sekolah dan kegiatan lain?</label>
+      <div class="choices" data-name="q2">
+        <label class="choice-item"><input type="radio" name="q2" value="Iya, soalnya ikut organisasi/ekskul bikin tenaga terkuras, jadi sering capek."><span class="choice-dot"></span><span class="choice-text">Iya, ekskul/organisasi bikin tenaga terkuras banget.</span></label>
+        <label class="choice-item"><input type="radio" name="q2" value="Capek karena tugas sekolah yang numpuk, kadang bikin pusing sendiri."><span class="choice-dot"></span><span class="choice-text">Capek karena tugas sekolah numpuk terus.</span></label>
+        <label class="choice-item"><input type="radio" name="q2" value="Pernah, tapi masih bisa diatur lah kalau pinter bagi waktu."><span class="choice-dot"></span><span class="choice-text">Pernah, tapi masih bisa diatur kalau pinter bagi waktu.</span></label>
+        <label class="choice-item"><input type="radio" name="q2" value="Jarang, biasanya aku santai aja ngejalaninnya."><span class="choice-dot"></span><span class="choice-text">Jarang, biasanya santai aja ngejalaninnya.</span></label>
+        <label class="choice-item"><input type="radio" name="q2" value="Capek sih, antara organisasi/ekskul, sama tugas sekolah numpuk. Jadi badan dan pikiran gampang lelah."><span class="choice-dot"></span><span class="choice-text">Capek banget — antara ekskul, organisasi, dan tugas semua numpuk.</span></label>
+      </div>
+    </div>
+
+    <div class="field" id="f-q3">
+      <label>Pernah nggak kamu merasa dibandingkan sama orang lain?</label>
+      <div class="choices" data-name="q3">
+        <label class="choice-item"><input type="radio" name="q3" value="Pernah, aku udah usaha ngerjain tugas sama aktif di kelas, tapi tetep aja dibandingin sama temen lain. Rasanya kayak sia-sia semua usaha aku."><span class="choice-dot"></span><span class="choice-text">Pernah, udah usaha keras tapi tetep dibanding-bandingin. Rasanya sia-sia.</span></label>
+        <label class="choice-item"><input type="radio" name="q3" value="Iya, dibandingin sama temen yang pede banget kalau disuruh maju presentasi. Rasanya malu, minder, kayak nggak bisa kayak dia."><span class="choice-dot"></span><span class="choice-text">Iya, dibandingin sama temen yang lebih pede. Bikin minder.</span></label>
+        <label class="choice-item"><input type="radio" name="q3" value="Pernah, sekali-dua kali tapi ya biasa aja… agak nggak enak sih."><span class="choice-dot"></span><span class="choice-text">Pernah sekali-dua kali, agak nggak enak tapi biasa aja.</span></label>
+        <label class="choice-item"><input type="radio" name="q3" value="Jarang, kadang malah aku cuekin aja."><span class="choice-dot"></span><span class="choice-text">Jarang, biasanya aku cuekin aja.</span></label>
+        <label class="choice-item"><input type="radio" name="q3" value="Nggak pernah, aku lebih fokus ke diri sendiri."><span class="choice-dot"></span><span class="choice-text">Nggak pernah, aku lebih fokus ke diri sendiri.</span></label>
+      </div>
+    </div>
+
+    <div class="field" id="f-q4">
+      <label>Kamu lebih sering merasa senang atau capek di sekolah?</label>
+      <div class="choices" data-name="q4">
+        <label class="choice-item"><input type="radio" name="q4" value="Lebih sering senang, soalnya banyak ketemu teman dan suasana rame bikin betah."><span class="choice-dot"></span><span class="choice-text">Lebih sering senang — ketemu teman dan suasana rame bikin betah.</span></label>
+        <label class="choice-item"><input type="radio" name="q4" value="Senang sih, apalagi kalau ada pelajaran atau guru yang asik ngajarnya."><span class="choice-dot"></span><span class="choice-text">Senang, apalagi kalau ada guru yang asik ngajarnya.</span></label>
+        <label class="choice-item"><input type="radio" name="q4" value="Kadang senang, kadang capek. Tergantung tugas sama kegiatan hari itu."><span class="choice-dot"></span><span class="choice-text">Fifty-fifty — tergantung tugas dan kegiatan hari itu.</span></label>
+        <label class="choice-item"><input type="radio" name="q4" value="Lebih sering capek, karena tugas banyak banget jadi stres sendiri."><span class="choice-dot"></span><span class="choice-text">Lebih sering capek — tugas banyak banget bikin stres.</span></label>
+        <label class="choice-item"><input type="radio" name="q4" value="Capek, soalnya sekolah kerasa padat banget, kadang sampai bingung mau istirahat kapan."><span class="choice-dot"></span><span class="choice-text">Capek banget — sekolah padat, bingung mau istirahat kapan.</span></label>
+      </div>
+    </div>
+
+    <div class="field" id="f-q5">
+      <label>Saat lagi stres, biasanya apa yang kamu lakuin biar lebih tenang?</label>
+      <div class="choices" data-name="q5">
+        <label class="choice-item"><input type="radio" name="q5" value="Main HP atau game"><span class="choice-dot"></span><span class="choice-text">Main HP atau game</span></label>
+        <label class="choice-item"><input type="radio" name="q5" value="Tidur, biar tenaga balik lagi"><span class="choice-dot"></span><span class="choice-text">Tidur, biar tenaga balik lagi</span></label>
+        <label class="choice-item"><input type="radio" name="q5" value="Curhat ke temen deket"><span class="choice-dot"></span><span class="choice-text">Curhat ke temen deket</span></label>
+        <label class="choice-item"><input type="radio" name="q5" value="Nongkrong bareng teman"><span class="choice-dot"></span><span class="choice-text">Nongkrong bareng teman</span></label>
+        <label class="choice-item"><input type="radio" name="q5" value="Dengerin musik"><span class="choice-dot"></span><span class="choice-text">Dengerin musik</span></label>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div class="section-title">Mimpi & <em>Tujuan</em></div>
+    <div class="section-note">Nggak usah malu, ini cuma buat kamu</div>
+
+    <div class="field" id="f-q6">
+      <label>Apa hal yang paling ingin kamu capai selama masa SMA?</label>
+      <div class="choices" data-name="q6">
+        <label class="choice-item"><input type="radio" name="q6" value="Menemukan apa yang benar-benar bikin aku semangat dan merasa &quot;ini aku banget!&quot;"><span class="choice-dot"></span><span class="choice-text">Nemuin hal yang bener-bener bikin aku semangat — "ini aku banget!"</span></label>
+        <label class="choice-item"><input type="radio" name="q6" value="Punya lingkaran pertemanan yang tulus, suportif, dan bikin aku merasa diterima"><span class="choice-dot"></span><span class="choice-text">Punya teman yang tulus, suportif, dan bikin aku merasa diterima.</span></label>
+        <label class="choice-item"><input type="radio" name="q6" value="Ikut kegiatan yang bikin aku keluar dari zona nyaman"><span class="choice-dot"></span><span class="choice-text">Ikut kegiatan yang bikin aku keluar dari zona nyaman.</span></label>
+        <label class="choice-item"><input type="radio" name="q6" value="Tumbuh jadi pribadi yang kuat, percaya diri, dan tahu cara menghadapi tantangan"><span class="choice-dot"></span><span class="choice-text">Tumbuh jadi pribadi yang kuat dan percaya diri.</span></label>
+        <label class="choice-item"><input type="radio" name="q6" value="Belajar mengenal diriku lebih dalam—tanpa tekanan, tanpa harus selalu sempurna"><span class="choice-dot"></span><span class="choice-text">Belajar mengenal diri sendiri lebih dalam, tanpa tekanan.</span></label>
+      </div>
+    </div>
+
+    <div class="field" id="f-q7">
+      <label>Tujuan hidup yang mulai kamu pikirin sekarang tuh kayak gimana?</label>
+      <div class="choices" data-name="q7">
+        <label class="choice-item"><input type="radio" name="q7" value="Bisa mandiri dan nggak nyusahin orang"><span class="choice-dot"></span><span class="choice-text">Bisa mandiri dan nggak nyusahin orang</span></label>
+        <label class="choice-item"><input type="radio" name="q7" value="Bikin orang lain ngerasa lebih baik karena aku ada"><span class="choice-dot"></span><span class="choice-text">Bikin orang lain ngerasa lebih baik karena aku ada</span></label>
+        <label class="choice-item"><input type="radio" name="q7" value="Terus belajar biar nggak gampang dibodohin dunia"><span class="choice-dot"></span><span class="choice-text">Terus belajar biar nggak gampang dibodohin dunia</span></label>
+        <label class="choice-item"><input type="radio" name="q7" value="Nikmatin hidup, nggak usah buru-buru jadi &quot;sukses&quot;"><span class="choice-dot"></span><span class="choice-text">Nikmatin hidup, nggak usah buru-buru jadi "sukses"</span></label>
+        <label class="choice-item"><input type="radio" name="q7" value="Pelan-pelan nemuin siapa aku dan apa yang aku mau"><span class="choice-dot"></span><span class="choice-text">Pelan-pelan nemuin siapa aku dan apa yang aku mau</span></label>
+      </div>
+    </div>
+
+    <div class="field" id="f-q8">
+      <label>Harapan buat diri sendiri sekarang?</label>
+      <div class="choices" data-name="q8">
+        <label class="choice-item"><input type="radio" name="q8" value="Bisa nerima diri sendiri apa adanya"><span class="choice-dot"></span><span class="choice-text">Bisa nerima diri sendiri apa adanya</span></label>
+        <label class="choice-item"><input type="radio" name="q8" value="Punya lingkungan yang bikin nyaman dan aman"><span class="choice-dot"></span><span class="choice-text">Punya lingkungan yang bikin nyaman dan aman</span></label>
+        <label class="choice-item"><input type="radio" name="q8" value="Bisa ngadepin stres tanpa harus ngilang atau marah-marah"><span class="choice-dot"></span><span class="choice-text">Bisa ngadepin stres tanpa harus ngilang atau marah-marah</span></label>
+        <label class="choice-item"><input type="radio" name="q8" value="Bisa mikir lebih tenang waktu ada masalah"><span class="choice-dot"></span><span class="choice-text">Bisa mikir lebih tenang waktu ada masalah</span></label>
+        <label class="choice-item"><input type="radio" name="q8" value="Ngerasa hidup ini ada tujuannya, bukan cuma rutinitas"><span class="choice-dot"></span><span class="choice-text">Ngerasa hidup ini ada tujuannya, bukan cuma rutinitas</span></label>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="goPage2()">Lanjut →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════ PAGE 2 ══════════════ -->
+  <div class="page" id="page2">
+
+    <div class="section-title">Dari <em>hati</em></div>
+    <div class="section-note">Bagian terpenting — tulis sepuasnya, nggak ada yang baca selain yang perlu baca</div>
+
+    <div class="field" id="f-q9">
+      <label>Kalau bisa ngobrol sama dirimu yang kemarin, sekarang, dan besok… kamu mau bilang apa?</label>
+      <textarea id="q9" placeholder="Tulis apa pun yang pengen kamu bilang ke dirimu sendiri..."></textarea>
+    </div>
+
+    <div class="field" id="f-q10">
+      <label>Pertanyaan besar yang sering muncul di kepalamu belakangan ini?</label>
+      <textarea id="q10" placeholder="Pertanyaan yang belum terjawab, yang terus muncul..."></textarea>
+    </div>
+
+    <div class="field" id="f-q11">
+      <label>Kalau hidupmu bisa digambarin lewat lagu atau penyanyi, siapa dan kenapa relate?</label>
+      <textarea id="q11" placeholder="Lagu / artis yang paling relate sama hidup kamu sekarang..."></textarea>
+    </div>
+
+    <div class="field" id="f-q12">
+      <label>Kamu lagi baik-baik aja nggak sekarang? Jujur ya.</label>
+      <textarea id="q12" placeholder="Nggak harus bilang baik-baik aja kalau memang nggak..."></textarea>
+    </div>
+
+    <div class="field" id="f-q13">
+      <label>Kalau bisa berhenti sejenak dari semua pikiran, kamu pengen ngapain?</label>
+      <textarea id="q13" placeholder="Hal yang pengen kamu lakuin kalau semua beban hilang sebentar..."></textarea>
+    </div>
+
+    <div class="field" id="f-q14">
+      <label>Hal kecil apa yang kamu syukuri akhir-akhir ini?</label>
+      <textarea id="q14" placeholder="Sekecil apa pun, tulis aja..."></textarea>
+    </div>
+
+    <div class="field" id="f-q15">
+      <label>Menurut kamu, apa arti "berhasil" buat dirimu sendiri?</label>
+      <textarea id="q15" placeholder="Definisi berhasil versi kamu sendiri, bukan versi orang lain..."></textarea>
+    </div>
+
+    <hr class="divider">
+
+    <div class="field" id="f-q16">
+      <label>Cerita bebas 💛</label>
+      <textarea id="q16" style="min-height:160px" placeholder="Cerita aja di sini. Mau panjang, mau random, yang penting dari hati. (\*\*gpp kalo longteks, namanya juga isi hati\*\*)"></textarea>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" onclick="goPage1()">← Kembali</button>
+      <button class="btn btn-primary" id="submitBtn" onclick="submitForm()">Kirim Ceritaku ✦</button>
+    </div>
+  </div>
+
+  <!-- ══════════════ SUCCESS ══════════════ -->
+  <div class="success" id="successPage">
+    <div class="success-icon">✦</div>
+    <h2>Terima kasih sudah <em>jujur</em></h2>
+    <div class="gold-line"></div>
+    <p>Ceritamu sudah tersimpan. Butuh keberanian buat nulis ini semua — dan kamu udah lakuin itu. Semoga harimu selalu ada sedikit cahaya. 🌙</p>
+  </div>
+
+</div>
+
+<script>
+  const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScHLd6iu-_7KY4P8Y3JGJRjbvn1TlIBH83tqktHM55xtq-nAQ/formResponse';
+
+  const ENTRY = {
+    nama:  'entry.205221591',
+    kelas: 'entry.1658547991',
+    q1:    'entry.98880624',
+    q2:    'entry.760411949',
+    q3:    'entry.1719336686',
+    q4:    'entry.1280060488',
+    q5:    'entry.1453868785',
+    q6:    'entry.2030962328',
+    q7:    'entry.2083401968',
+    q8:    'entry.2004058541',
+    q9:    'entry.382372806',   // Pesan ke diri
+    q10:   'entry.590487414',   // Cerita bebas (halaman 2 Google Form)
+    // q11-q16 dibawah ini masuk ke q10 sebagai gabungan karena Google Form hanya punya 1 field di halaman 2
+  };
+
+  // Radio choices
+  document.querySelectorAll('.choices').forEach(group => {
+    group.querySelectorAll('.choice-item').forEach(item => {
+      item.addEventListener('click', () => {
+        group.querySelectorAll('.choice-item').forEach(i => i.classList.remove('selected'));
+        item.classList.add('selected');
+        item.querySelector('input[type="radio"]').checked = true;
+        // clear error
+        const field = item.closest('.field');
+        if (field) field.classList.remove('error');
+      });
+    });
+  });
+
+  // Input clear error
+  document.querySelectorAll('input[type="text"], textarea, select').forEach(el => {
+    el.addEventListener('input', () => {
+      el.closest('.field')?.classList.remove('error');
+    });
+  });
+
+  function getRadio(name) {
+    const el = document.querySelector(`input[name="${name}"]:checked`);
+    return el ? el.value : '';
+  }
+
+  function updateProgress(page) {
+    const fill = document.getElementById('progressFill');
+    const label = document.getElementById('progressLabel');
+    fill.style.width = page === 1 ? '50%' : '100%';
+    label.textContent = `Halaman ${page} dari 2`;
+  }
+
+  function goPage1() {
+    document.getElementById('page2').classList.remove('active');
+    document.getElementById('page1').classList.add('active');
+    updateProgress(1);
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  function goPage2() {
+    // Validate page 1
+    let ok = true;
+    const nama = document.getElementById('nama').value.trim();
+    const kelas = document.getElementById('kelas').value;
+
+    const fNama = document.getElementById('f-nama');
+    const fKelas = document.getElementById('f-kelas');
+    fNama.classList.toggle('error', !nama);
+    fKelas.classList.toggle('error', !kelas);
+    if (!nama || !kelas) ok = false;
+
+    if (!ok) {
+      document.getElementById('f-nama').scrollIntoView({behavior: 'smooth', block: 'center'});
+      return;
+    }
+
+    document.getElementById('page1').classList.remove('active');
+    document.getElementById('page2').classList.add('active');
+    updateProgress(2);
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  async function submitForm() {
+    const btn = document.getElementById('submitBtn');
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    // Build form data
+    const nama  = document.getElementById('nama').value.trim();
+    const kelas = document.getElementById('kelas').value;
+
+    // Gabungkan semua jawaban teks halaman 2 jadi satu entry cerita bebas
+    const pesanDiri = document.getElementById('q9').value.trim();
+    const pertanyaanBesar = document.getElementById('q10').value.trim();
+    const lagurelatif = document.getElementById('q11').value.trim();
+    const baikAja = document.getElementById('q12').value.trim();
+    const berhentiSejenak = document.getElementById('q13').value.trim();
+    const syukur = document.getElementById('q14').value.trim();
+    const artiMenang = document.getElementById('q15').value.trim();
+    const ceritaBebas = document.getElementById('q16').value.trim();
+
+    const pesanDiriGabung = pesanDiri || '-';
+    const ceritaGabung = [
+      ceritaBebas,
+      pertanyaanBesar ? `[Pertanyaan besar: ${pertanyaanBesar}]` : '',
+      lagurelatif ? `[Lagu relate: ${lagurelatif}]` : '',
+      baikAja ? `[Baik-baik aja: ${baikAja}]` : '',
+      berhentiSejenak ? `[Berhenti sejenak: ${berhentiSejenak}]` : '',
+      syukur ? `[Syukur: ${syukur}]` : '',
+      artiMenang ? `[Arti berhasil: ${artiMenang}]` : '',
+    ].filter(Boolean).join('\n') || '-';
+
+    const params = new URLSearchParams();
+    params.append(ENTRY.nama,  nama);
+    params.append(ENTRY.kelas, kelas);
+    params.append(ENTRY.q1,    getRadio('q1') || '-');
+    params.append(ENTRY.q2,    getRadio('q2') || '-');
+    params.append(ENTRY.q3,    getRadio('q3') || '-');
+    params.append(ENTRY.q4,    getRadio('q4') || '-');
+    params.append(ENTRY.q5,    getRadio('q5') || '-');
+    params.append(ENTRY.q6,    getRadio('q6') || '-');
+    params.append(ENTRY.q7,    getRadio('q7') || '-');
+    params.append(ENTRY.q8,    getRadio('q8') || '-');
+    params.append(ENTRY.q9,    pesanDiriGabung);
+    params.append(ENTRY.q10,   ceritaGabung);
+
+    try {
+      // Google Forms blocks CORS so we use no-cors — response will be opaque but data goes through
+      await fetch(FORM_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params.toString()
+      });
+    } catch(e) {
+      // no-cors fetch always "fails" in try/catch but data still submitted
+    }
+
+    // Show success regardless (no-cors gives opaque response)
+    document.getElementById('page2').classList.remove('active');
+    document.getElementById('successPage').classList.add('show');
+    document.querySelector('.progress-bar-wrap').style.display = 'none';
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  // Init progress
+  updateProgress(1);
+</script>
+</body>
+</html>
