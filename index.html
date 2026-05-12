@@ -70,7 +70,6 @@
     font-family: var(--sans);
     font-size: 0.68rem;
     letter-spacing: 0.35em;
-    text-transform: uppercase;
     color: var(--gold);
     margin-bottom: 20px;
   }
@@ -164,12 +163,11 @@
     display: block;
     font-size: 0.8rem;
     letter-spacing: 0.08em;
-    text-transform: uppercase;
     color: var(--gold);
     margin-bottom: 10px;
     font-weight: 500;
   }
-  .field label .req { color: #c0504a; margin-left: 3px; }
+  .field label .req { color: #c0504a; margin-left: 4px; }
 
   /* text input */
   .field input[type="text"],
@@ -202,7 +200,7 @@
   .field select option { background: #111; }
 
   /* radio / checkbox group */
-  .choices { display: flex; flex-direction: column; gap: 8px; }
+  .choices { display: flex; flex-direction: column; gap: 10px; }
   .choice-item {
     display: flex;
     align-items: flex-start;
@@ -213,6 +211,9 @@
     cursor: pointer;
     transition: border-color 0.2s, background 0.2s;
     background: var(--black2);
+    width: 100%;
+    box-sizing: border-box;
+    text-decoration: none;
   }
   .choice-item:hover { border-color: var(--gold-border); background: #141410; }
   .choice-item input[type="radio"] { display: none; }
@@ -243,7 +244,7 @@
   }
   .choice-item.selected .choice-dot { border-color: var(--gold); }
   .choice-item.selected .choice-dot::after { opacity: 1; }
-  .choice-text { font-size: 0.88rem; line-height: 1.5; color: #ccc5b0; }
+  .choice-text { font-size: 0.88rem; line-height: 1.5; color: #ccc5b0; display: block; word-break: break-word; }
   .choice-item.selected .choice-text { color: var(--white); }
 
   /* divider */
@@ -264,7 +265,6 @@
     font-family: var(--sans);
     font-size: 0.78rem;
     letter-spacing: 0.2em;
-    text-transform: uppercase;
     font-weight: 500;
     padding: 14px 32px;
     border-radius: 3px;
@@ -361,7 +361,7 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="eyebrow">Kelas 11 · SMA · 2026</div>
+    <div class="eyebrow">KELAS 11 · SMA · 2026</div>
     <h1>CERITA</h1>
     <div class="hero-sub">Curahan · Emosi · Remaja · Inspirasi · Tujuan · Asa</div>
     <p class="hero-desc">Ini bukan ujian. Nggak ada jawaban benar atau salah. Cuma kamu, jujur sama diri sendiri.</p>
@@ -376,8 +376,8 @@
   <!-- ══════════════ PAGE 1 ══════════════ -->
   <div class="page active" id="page1">
 
-    <div class="section-title">Siapa <em>kamu?</em></div>
-    <div class="section-note">Yang biasa dipanggil temen-temen</div>
+    <div class="section-title">siapa <em>kamu?</em></div>
+    <div class="section-note">yang biasa dipanggil temen-temen</div>
 
     <div class="field" id="f-nama">
       <label>Nama panggilan <span class="req">*</span></label>
@@ -386,7 +386,7 @@
     </div>
 
     <div class="field" id="f-kelas">
-      <label>Kelas <span class="req">*</span></label>
+      <label>kelas <span class="req">*</span></label>
       <select id="kelas">
         <option value="">— Pilih kelasmu —</option>
         <option>XI.1(11.1)</option>
@@ -402,15 +402,15 @@
         <option>XI.11(11.11)</option>
         <option>XI.12(11.12)</option>
       </select>
-      <div class="err-msg">Pilih kelasmu dulu!</div>
+      <div class="err-msg">Pilih kelasmu dulu</div>
     </div>
 
     <hr class="divider">
-    <div class="section-title">Di dalam <em>kepala</em></div>
-    <div class="section-note">Jujur aja, nggak ada yang judge</div>
+    <div class="section-title">di dalam <em>kepala</em></div>
+    <div class="section-note">jujur aja, nggak ada yang judge</div>
 
     <div class="field" id="f-q1">
-      <label>Apa yang paling sering bikin kamu kepikiran belakangan ini?</label>
+      <label>apa yang paling sering bikin kamu kepikiran belakangan ini?</label>
       <div class="choices" data-name="q1">
         <label class="choice-item"><input type="radio" name="q1" value="Tugas sekolah yang kayak nggak ada habisnya, kadang bikin takut ketinggalan."><span class="choice-dot"></span><span class="choice-text">Tugas sekolah yang kayak nggak ada habisnya, kadang bikin takut ketinggalan.</span></label>
         <label class="choice-item"><input type="radio" name="q1" value="Kegiatan organisasi atau ekskul, soalnya sering bentrok sama waktu belajar."><span class="choice-dot"></span><span class="choice-text">Kegiatan organisasi atau ekskul, soalnya sering bentrok sama waktu belajar.</span></label>
@@ -421,7 +421,7 @@
     </div>
 
     <div class="field" id="f-q2">
-      <label>Pernah nggak kamu ngerasa capek banget gara-gara sekolah dan kegiatan lain?</label>
+      <label>pernah nggak kamu ngerasa capek banget gara-gara sekolah dan kegiatan lain?</label>
       <div class="choices" data-name="q2">
         <label class="choice-item"><input type="radio" name="q2" value="Iya, soalnya ikut organisasi/ekskul bikin tenaga terkuras, jadi sering capek."><span class="choice-dot"></span><span class="choice-text">Iya, ekskul/organisasi bikin tenaga terkuras banget.</span></label>
         <label class="choice-item"><input type="radio" name="q2" value="Capek karena tugas sekolah yang numpuk, kadang bikin pusing sendiri."><span class="choice-dot"></span><span class="choice-text">Capek karena tugas sekolah numpuk terus.</span></label>
@@ -432,7 +432,7 @@
     </div>
 
     <div class="field" id="f-q3">
-      <label>Pernah nggak kamu merasa dibandingkan sama orang lain?</label>
+      <label>pernah nggak kamu merasa dibandingkan sama orang lain?</label>
       <div class="choices" data-name="q3">
         <label class="choice-item"><input type="radio" name="q3" value="Pernah, aku udah usaha ngerjain tugas sama aktif di kelas, tapi tetep aja dibandingin sama temen lain. Rasanya kayak sia-sia semua usaha aku."><span class="choice-dot"></span><span class="choice-text">Pernah, udah usaha keras tapi tetep dibanding-bandingin. Rasanya sia-sia.</span></label>
         <label class="choice-item"><input type="radio" name="q3" value="Iya, dibandingin sama temen yang pede banget kalau disuruh maju presentasi. Rasanya malu, minder, kayak nggak bisa kayak dia."><span class="choice-dot"></span><span class="choice-text">Iya, dibandingin sama temen yang lebih pede. Bikin minder.</span></label>
@@ -443,7 +443,7 @@
     </div>
 
     <div class="field" id="f-q4">
-      <label>Kamu lebih sering merasa senang atau capek di sekolah?</label>
+      <label>kamu lebih sering merasa senang atau capek di sekolah?</label>
       <div class="choices" data-name="q4">
         <label class="choice-item"><input type="radio" name="q4" value="Lebih sering senang, soalnya banyak ketemu teman dan suasana rame bikin betah."><span class="choice-dot"></span><span class="choice-text">Lebih sering senang — ketemu teman dan suasana rame bikin betah.</span></label>
         <label class="choice-item"><input type="radio" name="q4" value="Senang sih, apalagi kalau ada pelajaran atau guru yang asik ngajarnya."><span class="choice-dot"></span><span class="choice-text">Senang, apalagi kalau ada guru yang asik ngajarnya.</span></label>
@@ -454,7 +454,7 @@
     </div>
 
     <div class="field" id="f-q5">
-      <label>Saat lagi stres, biasanya apa yang kamu lakuin biar lebih tenang?</label>
+      <label>saat lagi stres, biasanya apa yang kamu lakuin biar lebih tenang?</label>
       <div class="choices" data-name="q5">
         <label class="choice-item"><input type="radio" name="q5" value="Main HP atau game"><span class="choice-dot"></span><span class="choice-text">Main HP atau game</span></label>
         <label class="choice-item"><input type="radio" name="q5" value="Tidur, biar tenaga balik lagi"><span class="choice-dot"></span><span class="choice-text">Tidur, biar tenaga balik lagi</span></label>
@@ -465,11 +465,11 @@
     </div>
 
     <hr class="divider">
-    <div class="section-title">Mimpi & <em>Tujuan</em></div>
-    <div class="section-note">Nggak usah malu, ini cuma buat kamu</div>
+    <div class="section-title">mimpi & <em>tujuan</em></div>
+    <div class="section-note">nggak usah malu, ini cuma buat kamu</div>
 
     <div class="field" id="f-q6">
-      <label>Apa hal yang paling ingin kamu capai selama masa SMA?</label>
+      <label>apa hal yang paling ingin kamu capai selama masa SMA?</label>
       <div class="choices" data-name="q6">
         <label class="choice-item"><input type="radio" name="q6" value="Menemukan apa yang benar-benar bikin aku semangat dan merasa &quot;ini aku banget!&quot;"><span class="choice-dot"></span><span class="choice-text">Nemuin hal yang bener-bener bikin aku semangat — "ini aku banget!"</span></label>
         <label class="choice-item"><input type="radio" name="q6" value="Punya lingkaran pertemanan yang tulus, suportif, dan bikin aku merasa diterima"><span class="choice-dot"></span><span class="choice-text">Punya teman yang tulus, suportif, dan bikin aku merasa diterima.</span></label>
@@ -480,7 +480,7 @@
     </div>
 
     <div class="field" id="f-q7">
-      <label>Tujuan hidup yang mulai kamu pikirin sekarang tuh kayak gimana?</label>
+      <label>tujuan hidup yang mulai kamu pikirin sekarang tuh kayak gimana?</label>
       <div class="choices" data-name="q7">
         <label class="choice-item"><input type="radio" name="q7" value="Bisa mandiri dan nggak nyusahin orang"><span class="choice-dot"></span><span class="choice-text">Bisa mandiri dan nggak nyusahin orang</span></label>
         <label class="choice-item"><input type="radio" name="q7" value="Bikin orang lain ngerasa lebih baik karena aku ada"><span class="choice-dot"></span><span class="choice-text">Bikin orang lain ngerasa lebih baik karena aku ada</span></label>
@@ -491,7 +491,7 @@
     </div>
 
     <div class="field" id="f-q8">
-      <label>Harapan buat diri sendiri sekarang?</label>
+      <label>harapan buat diri sendiri sekarang?</label>
       <div class="choices" data-name="q8">
         <label class="choice-item"><input type="radio" name="q8" value="Bisa nerima diri sendiri apa adanya"><span class="choice-dot"></span><span class="choice-text">Bisa nerima diri sendiri apa adanya</span></label>
         <label class="choice-item"><input type="radio" name="q8" value="Punya lingkungan yang bikin nyaman dan aman"><span class="choice-dot"></span><span class="choice-text">Punya lingkungan yang bikin nyaman dan aman</span></label>
@@ -509,50 +509,49 @@
   <!-- ══════════════ PAGE 2 ══════════════ -->
   <div class="page" id="page2">
 
-    <div class="section-title">Dari <em>hati</em></div>
-    <div class="section-note">Bagian terpenting — tulis sepuasnya, nggak ada yang baca selain yang perlu baca</div>
+    <div class="section-title">dari <em>hati</em></div>
+    <div class="section-note">bagian terpenting — tulis sepuasnya, nggak ada yang baca selain yang perlu baca</div>
 
     <div class="field" id="f-q9">
-      <label>Kalau bisa ngobrol sama dirimu yang kemarin, sekarang, dan besok… kamu mau bilang apa?</label>
+      <label>kalau bisa ngobrol sama dirimu yang kemarin, sekarang, dan besok… kamu mau bilang apa?</label>
       <textarea id="q9" placeholder="Tulis apa pun yang pengen kamu bilang ke dirimu sendiri..."></textarea>
     </div>
 
     <div class="field" id="f-q10">
-      <label>Pertanyaan besar yang sering muncul di kepalamu belakangan ini?</label>
+      <label>pertanyaan besar yang sering muncul di kepalamu belakangan ini?</label>
       <textarea id="q10" placeholder="Pertanyaan yang belum terjawab, yang terus muncul..."></textarea>
     </div>
 
     <div class="field" id="f-q11">
-      <label>Kalau hidupmu bisa digambarin lewat lagu atau penyanyi, siapa dan kenapa relate?</label>
+      <label>kalau hidupmu bisa digambarin lewat lagu atau penyanyi, siapa dan kenapa relate?</label>
       <textarea id="q11" placeholder="Lagu / artis yang paling relate sama hidup kamu sekarang..."></textarea>
     </div>
 
     <div class="field" id="f-q12">
-      <label>Kamu lagi baik-baik aja nggak sekarang? Jujur ya.</label>
+      <label>kamu lagi baik-baik aja nggak sekarang? jujur ya.</label>
       <textarea id="q12" placeholder="Nggak harus bilang baik-baik aja kalau memang nggak..."></textarea>
     </div>
 
     <div class="field" id="f-q13">
-      <label>Kalau bisa berhenti sejenak dari semua pikiran, kamu pengen ngapain?</label>
+      <label>kalau bisa berhenti sejenak dari semua pikiran, kamu pengen ngapain?</label>
       <textarea id="q13" placeholder="Hal yang pengen kamu lakuin kalau semua beban hilang sebentar..."></textarea>
     </div>
 
     <div class="field" id="f-q14">
-      <label>Hal kecil apa yang kamu syukuri akhir-akhir ini?</label>
+      <label>hal kecil apa yang kamu syukuri akhir-akhir ini?</label>
       <textarea id="q14" placeholder="Sekecil apa pun, tulis aja..."></textarea>
     </div>
 
     <div class="field" id="f-q15">
-      <label>Menurut kamu, apa arti "berhasil" buat dirimu sendiri?</label>
+      <label>menurut kamu, apa arti "berhasil" buat dirimu sendiri?</label>
       <textarea id="q15" placeholder="Definisi berhasil versi kamu sendiri, bukan versi orang lain..."></textarea>
     </div>
 
     <hr class="divider">
 
     <div class="field" id="f-q16">
-      <label>Cerita bebas 💛</label>
-      <textarea id="q16" style="min-height:160px" placeholder="Cerita aja di sini. Mau panjang, mau random, yang penting dari hati.
-        (gpp kalo longteks, namanya juga isi hati)"></textarea>
+      <label>cerita bebas 💛</label>
+      <textarea id="q16" style="min-height:160px" placeholder="Cerita aja di sini. Mau panjang, mau random, yang penting dari hati. (\*\*gpp kalo longteks, namanya juga isi hati\*\*)"></textarea>
     </div>
 
     <div class="btn-row">
@@ -577,17 +576,73 @@
   const ENTRY = {
     nama:  'entry.205221591',
     kelas: 'entry.2083401968',
-    q1:    'entry.1658547991',
-    q2:    'entry.98880624',
-    q3:    'entry.760411949',
-    q4:    'entry.1719336686',
-    q5:    'entry.1280060488',
-    q6:    'entry.1453868785',
-    q7:    'entry.2030962328',
-    q8:    'entry.2004058541',
-    q9:    'entry.382372806',
-    q10:   'entry.590487414',
+    q1:    'entry.2004058541',
+    q2:    'entry.1093529126',
+    q3:    'entry.1606509133',
+    q4:    'entry.1825456161',
+    q5:    'entry.1566086665',
+    q6:    'entry.1925369768',
+    q7:    'entry.1436663988',
+    q8:    'entry.1300626341',
+    q9:    'entry.1658547991',
+    q10:   'entry.98880624',
+    q11:   'entry.760411949',
+    q12:   'entry.1719336686',
+    q13:   'entry.1280060488',
+    q14:   'entry.1453868785',
+    q15:   'entry.2030962328',
+    q16:   'entry.382372806',
   };
+
+  const SAVE_KEY = 'cerita_draft';
+
+  // ── AUTO SAVE ──
+  function saveProgress() {
+    const data = {
+      nama:  document.getElementById('nama').value,
+      kelas: document.getElementById('kelas').value,
+      q9:  document.getElementById('q9').value,
+      q10: document.getElementById('q10').value,
+      q11: document.getElementById('q11').value,
+      q12: document.getElementById('q12').value,
+      q13: document.getElementById('q13').value,
+      q14: document.getElementById('q14').value,
+      q15: document.getElementById('q15').value,
+      q16: document.getElementById('q16').value,
+      radios: {}
+    };
+    ['q1','q2','q3','q4','q5','q6','q7','q8'].forEach(n => {
+      const el = document.querySelector(`input[name="${n}"]:checked`);
+      if (el) data.radios[n] = el.value;
+    });
+    localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+  }
+
+  function loadProgress() {
+    try {
+      const raw = localStorage.getItem(SAVE_KEY);
+      if (!raw) return;
+      const data = JSON.parse(raw);
+      if (data.nama)  document.getElementById('nama').value  = data.nama;
+      if (data.kelas) document.getElementById('kelas').value = data.kelas;
+      ['q9','q10','q11','q12','q13','q14','q15','q16'].forEach(id => {
+        if (data[id]) document.getElementById(id).value = data[id];
+      });
+      if (data.radios) {
+        Object.entries(data.radios).forEach(([name, val]) => {
+          const radio = document.querySelector(`input[name="${name}"][value="${CSS.escape ? val : val}"]`);
+          if (radio) {
+            radio.checked = true;
+            radio.closest('.choice-item')?.classList.add('selected');
+          }
+        });
+      }
+    } catch(e) {}
+  }
+
+  function clearDraft() {
+    localStorage.removeItem(SAVE_KEY);
+  }
 
   // Radio choices
   document.querySelectorAll('.choices').forEach(group => {
@@ -596,30 +651,31 @@
         group.querySelectorAll('.choice-item').forEach(i => i.classList.remove('selected'));
         item.classList.add('selected');
         item.querySelector('input[type="radio"]').checked = true;
-        // clear error
         const field = item.closest('.field');
         if (field) field.classList.remove('error');
+        saveProgress();
       });
     });
   });
 
-  // Input clear error
+  // Input auto-save
   document.querySelectorAll('input[type="text"], textarea, select').forEach(el => {
     el.addEventListener('input', () => {
       el.closest('.field')?.classList.remove('error');
+      saveProgress();
     });
   });
 
   function getRadio(name) {
     const el = document.querySelector(`input[name="${name}"]:checked`);
-    return el ? el.value : '';
+    return el ? el.value : '-';
   }
 
   function updateProgress(page) {
     const fill = document.getElementById('progressFill');
     const label = document.getElementById('progressLabel');
     fill.style.width = page === 1 ? '50%' : '100%';
-    label.textContent = `Halaman ${page} dari 2`;
+    label.textContent = `halaman ${page} dari 2`;
   }
 
   function goPage1() {
@@ -630,22 +686,19 @@
   }
 
   function goPage2() {
-    // Validate page 1
     let ok = true;
     const nama = document.getElementById('nama').value.trim();
     const kelas = document.getElementById('kelas').value;
-
     const fNama = document.getElementById('f-nama');
     const fKelas = document.getElementById('f-kelas');
     fNama.classList.toggle('error', !nama);
     fKelas.classList.toggle('error', !kelas);
     if (!nama || !kelas) ok = false;
-
     if (!ok) {
       document.getElementById('f-nama').scrollIntoView({behavior: 'smooth', block: 'center'});
       return;
     }
-
+    saveProgress();
     document.getElementById('page1').classList.remove('active');
     document.getElementById('page2').classList.add('active');
     updateProgress(2);
@@ -657,66 +710,45 @@
     btn.classList.add('loading');
     btn.disabled = true;
 
-    // Build form data
-    const nama  = document.getElementById('nama').value.trim();
-    const kelas = document.getElementById('kelas').value;
-
-    // Gabungkan semua jawaban teks halaman 2 jadi satu entry cerita bebas
-    const pesanDiri = document.getElementById('q9').value.trim();
-    const pertanyaanBesar = document.getElementById('q10').value.trim();
-    const lagurelatif = document.getElementById('q11').value.trim();
-    const baikAja = document.getElementById('q12').value.trim();
-    const berhentiSejenak = document.getElementById('q13').value.trim();
-    const syukur = document.getElementById('q14').value.trim();
-    const artiMenang = document.getElementById('q15').value.trim();
-    const ceritaBebas = document.getElementById('q16').value.trim();
-
-    const pesanDiriGabung = pesanDiri || '-';
-    const ceritaGabung = [
-      ceritaBebas,
-      pertanyaanBesar ? `[Pertanyaan besar: ${pertanyaanBesar}]` : '',
-      lagurelatif ? `[Lagu relate: ${lagurelatif}]` : '',
-      baikAja ? `[Baik-baik aja: ${baikAja}]` : '',
-      berhentiSejenak ? `[Berhenti sejenak: ${berhentiSejenak}]` : '',
-      syukur ? `[Syukur: ${syukur}]` : '',
-      artiMenang ? `[Arti berhasil: ${artiMenang}]` : '',
-    ].filter(Boolean).join('\n') || '-';
-
     const params = new URLSearchParams();
-    params.append(ENTRY.nama,  nama);
-    params.append(ENTRY.kelas, kelas);
-    params.append(ENTRY.q1,    getRadio('q1') || '-');
-    params.append(ENTRY.q2,    getRadio('q2') || '-');
-    params.append(ENTRY.q3,    getRadio('q3') || '-');
-    params.append(ENTRY.q4,    getRadio('q4') || '-');
-    params.append(ENTRY.q5,    getRadio('q5') || '-');
-    params.append(ENTRY.q6,    getRadio('q6') || '-');
-    params.append(ENTRY.q7,    getRadio('q7') || '-');
-    params.append(ENTRY.q8,    getRadio('q8') || '-');
-    params.append(ENTRY.q9,    pesanDiriGabung);
-    params.append(ENTRY.q10,   ceritaGabung);
+    params.append(ENTRY.nama,  document.getElementById('nama').value.trim());
+    params.append(ENTRY.kelas, document.getElementById('kelas').value);
+    params.append(ENTRY.q1,  getRadio('q1'));
+    params.append(ENTRY.q2,  getRadio('q2'));
+    params.append(ENTRY.q3,  getRadio('q3'));
+    params.append(ENTRY.q4,  getRadio('q4'));
+    params.append(ENTRY.q5,  getRadio('q5'));
+    params.append(ENTRY.q6,  getRadio('q6'));
+    params.append(ENTRY.q7,  getRadio('q7'));
+    params.append(ENTRY.q8,  getRadio('q8'));
+    params.append(ENTRY.q9,  document.getElementById('q9').value.trim()  || '-');
+    params.append(ENTRY.q10, document.getElementById('q10').value.trim() || '-');
+    params.append(ENTRY.q11, document.getElementById('q11').value.trim() || '-');
+    params.append(ENTRY.q12, document.getElementById('q12').value.trim() || '-');
+    params.append(ENTRY.q13, document.getElementById('q13').value.trim() || '-');
+    params.append(ENTRY.q14, document.getElementById('q14').value.trim() || '-');
+    params.append(ENTRY.q15, document.getElementById('q15').value.trim() || '-');
+    params.append(ENTRY.q16, document.getElementById('q16').value.trim() || '-');
 
     try {
-      // Google Forms blocks CORS so we use no-cors — response will be opaque but data goes through
       await fetch(FORM_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: params.toString()
       });
-    } catch(e) {
-      // no-cors fetch always "fails" in try/catch but data still submitted
-    }
+    } catch(e) {}
 
-    // Show success regardless (no-cors gives opaque response)
+    clearDraft();
     document.getElementById('page2').classList.remove('active');
     document.getElementById('successPage').classList.add('show');
     document.querySelector('.progress-bar-wrap').style.display = 'none';
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
-  // Init progress
+  // Init
   updateProgress(1);
+  loadProgress();
 </script>
 </body>
 </html>
