@@ -705,21 +705,74 @@
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
-    async function submitForm() {
-    const btn = document.getElementById('submitBtn');
-    btn.classList.add('loading');
-    btn.disabled = true;
+    function submitForm() {
 
-    const form = document.getElementById('googleForm');
-    form.innerHTML = '';
+  const btn = document.getElementById('submitBtn');
 
-    function addField(name, value) {
-      const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = name;
-      input.value = value || '-';
-      form.appendChild(input);
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  const form = document.getElementById('googleForm');
+
+  form.innerHTML = '';
+
+  function addField(name, value) {
+
+    const input = document.createElement('input');
+
+    input.type = 'hidden';
+    input.name = name;
+    input.value = value || '';
+
+    form.appendChild(input);
+  }
+
+  // wajib
+  addField(ENTRY.nama, document.getElementById('nama').value.trim());
+  addField(ENTRY.kelas, document.getElementById('kelas').value);
+
+  // radio optional
+  ['q1','q2','q3','q4','q5','q6','q7','q8'].forEach(q => {
+
+    const checked = document.querySelector(`input[name="${q}"]:checked`);
+
+    if (checked) {
+      addField(ENTRY[q], checked.value);
     }
+  });
+
+  // textarea optional
+  ['q9','q10','q11','q12','q13','q14','q15','q16'].forEach(q => {
+
+    const value = document.getElementById(q).value.trim();
+
+    if (value !== '') {
+      addField(ENTRY[q], value);
+    }
+  });
+
+  // submit ke google form
+  form.submit();
+
+  // hapus draft
+  clearDraft();
+
+  // tampil success
+  document.getElementById('page2').classList.remove('active');
+
+  document.getElementById('successPage').classList.add('show');
+
+  document.querySelector('.progress-bar-wrap').style.display = 'none';
+
+  btn.classList.remove('loading');
+
+  btn.disabled = false;
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
 
     addField(ENTRY.nama,  document.getElementById('nama').value.trim());
     addField(ENTRY.kelas, document.getElementById('kelas').value);
@@ -765,8 +818,8 @@
   method="POST"
   target="hidden_iframe"
   style="display:none;"
->
-</form>
+></form>
+  
 <iframe name="hidden_iframe" style="display:none;"></iframe>
 </body>
 </html>
