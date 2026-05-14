@@ -480,7 +480,7 @@ function clearRadio(name) {
 // ── Auto-save text ──
 ['q_nama','q_refleksi','q_pertanyaan','q_musik','q_jujur','q_istirahat','q_syukur','q_berhasil'].forEach(id => {
   const el = document.getElementById(id); if (!el) return;
-  const km = {q_nama:'nama',q_refleksi:'refleksi',q_pertanyaan:'pertanyaan',q_musik:'musik',q_jujur:'jujur',q_istirahat:'istirahat',q_syukur:'syukur',q_berhasil:'berhasil'};
+  const km = {q_nama:'nama',q_refleksi:'refleksi',q_pertanyaan:'pertanyaan',q_musik:'musik',q_jujur:'jujur',q_istirahat:'istirahat',q_syukur:'syukur',q_berhasil:'berhasil',q_cerita_bebas:'cerita_bebas'};
   el.addEventListener('input', () => save(km[id], el.value));
 });
 document.getElementById('q_kelas').addEventListener('change', function() { save('kelas', this.value); });
