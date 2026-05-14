@@ -451,7 +451,7 @@
 </div>
 
 <script>
-const KEY = 'cerita_v5';
+const KEY = 'cerita_v6';
 const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScHLd6iu-_7KY4P8Y3JGJRjbvn1TlIBH83tqktHM55xtq-nAQ/formResponse';
 
 // ── Storage ──
@@ -512,6 +512,12 @@ function goPage2() {
   document.getElementById('mainHeader').style.display = 'none';
   setProgress(50);
   save('_page', 2);
+  // pasang listener cerita bebas di sini karena element baru visible
+  const elCB = document.getElementById('q_cerita_bebas');
+  if (elCB && !elCB._listenerAdded) {
+    elCB.addEventListener('input', () => save('cerita_bebas', elCB.value));
+    elCB._listenerAdded = true;
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
