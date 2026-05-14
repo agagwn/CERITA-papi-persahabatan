@@ -167,7 +167,7 @@
     margin-bottom: 10px;
     font-weight: 500;
   }
-  .field label .req { color: #c0504a; margin-left: 4px; }
+  .field label .req { color: #c0504a; margin-left: 3px; }
 
   /* text input */
   .field input[type="text"],
@@ -200,9 +200,9 @@
   .field select option { background: #111; }
 
   /* radio / checkbox group */
-  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choices { display: flex; flex-direction: column; gap: 10px; width: 100%; }
   .choice-item {
-    display: flex;
+    display: flex !important;
     align-items: flex-start;
     gap: 12px;
     padding: 13px 16px;
@@ -244,7 +244,7 @@
   }
   .choice-item.selected .choice-dot { border-color: var(--gold); }
   .choice-item.selected .choice-dot::after { opacity: 1; }
-  .choice-text { font-size: 0.88rem; line-height: 1.5; color: #ccc5b0; display: block; word-break: break-word; }
+  .choice-text { font-size: 0.9rem; line-height: 1.5; color: #ccc5b0; display: block; word-break: break-word; text-transform: none; letter-spacing: 0; font-family: var(--sans); }
   .choice-item.selected .choice-text { color: var(--white); }
 
   /* divider */
@@ -402,7 +402,7 @@
         <option>XI.11(11.11)</option>
         <option>XI.12(11.12)</option>
       </select>
-      <div class="err-msg">Pilih kelasmu dulu</div>
+      <div class="err-msg">Pilih kelasmu dulu!</div>
     </div>
 
     <hr class="divider">
@@ -551,8 +551,7 @@
 
     <div class="field" id="f-q16">
       <label>cerita bebas 💛</label>
-      <textarea id="q16" style="min-height:160px" placeholder="Cerita aja di sini. Mau panjang, mau random, yang penting dari hati.
-        (gpp kalo longteks, namanya juga isi hati)"></textarea>
+      <textarea id="q16" style="min-height:160px" placeholder="Cerita aja di sini. Mau panjang, mau random, yang penting dari hati. (\*\*gpp kalo longteks, namanya juga isi hati\*\*)"></textarea>
     </div>
 
     <div class="btn-row">
@@ -706,50 +705,68 @@
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
-  async function submitForm() {
+    async function submitForm() {
     const btn = document.getElementById('submitBtn');
     btn.classList.add('loading');
     btn.disabled = true;
 
-    const params = new URLSearchParams();
-    params.append(ENTRY.nama,  document.getElementById('nama').value.trim());
-    params.append(ENTRY.kelas, document.getElementById('kelas').value);
-    params.append(ENTRY.q1,  getRadio('q1'));
-    params.append(ENTRY.q2,  getRadio('q2'));
-    params.append(ENTRY.q3,  getRadio('q3'));
-    params.append(ENTRY.q4,  getRadio('q4'));
-    params.append(ENTRY.q5,  getRadio('q5'));
-    params.append(ENTRY.q6,  getRadio('q6'));
-    params.append(ENTRY.q7,  getRadio('q7'));
-    params.append(ENTRY.q8,  getRadio('q8'));
-    params.append(ENTRY.q9,  document.getElementById('q9').value.trim()  || '-');
-    params.append(ENTRY.q10, document.getElementById('q10').value.trim() || '-');
-    params.append(ENTRY.q11, document.getElementById('q11').value.trim() || '-');
-    params.append(ENTRY.q12, document.getElementById('q12').value.trim() || '-');
-    params.append(ENTRY.q13, document.getElementById('q13').value.trim() || '-');
-    params.append(ENTRY.q14, document.getElementById('q14').value.trim() || '-');
-    params.append(ENTRY.q15, document.getElementById('q15').value.trim() || '-');
-    params.append(ENTRY.q16, document.getElementById('q16').value.trim() || '-');
+    const form = document.getElementById('googleForm');
+    form.innerHTML = '';
 
-    try {
-      await fetch(FORM_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params.toString()
-      });
-    } catch(e) {}
+    function addField(name, value) {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      input.value = value || '-';
+      form.appendChild(input);
+    }
 
+    addField(ENTRY.nama,  document.getElementById('nama').value.trim());
+    addField(ENTRY.kelas, document.getElementById('kelas').value);
+    addField(ENTRY.q1,   getRadio('q1'));
+    addField(ENTRY.q2,   getRadio('q2'));
+    addField(ENTRY.q3,   getRadio('q3'));
+    addField(ENTRY.q4,   getRadio('q4'));
+    addField(ENTRY.q5,   getRadio('q5'));
+    addField(ENTRY.q6,   getRadio('q6'));
+    addField(ENTRY.q7,   getRadio('q7'));
+    addField(ENTRY.q8,   getRadio('q8'));
+    addField(ENTRY.q9,   document.getElementById('q9').value.trim());
+    addField(ENTRY.q10,  document.getElementById('q10').value.trim());
+    addField(ENTRY.q11,  document.getElementById('q11').value.trim());
+    addField(ENTRY.q12,  document.getElementById('q12').value.trim());
+    addField(ENTRY.q13,  document.getElementById('q13').value.trim());
+    addField(ENTRY.q14,  document.getElementById('q14').value.trim());
+    addField(ENTRY.q15,  document.getElementById('q15').value.trim());
+    addField(ENTRY.q16,  document.getElementById('q16').value.trim());
+
+    form.submit();
     clearDraft();
-    document.getElementById('page2').classList.remove('active');
-    document.getElementById('successPage').classList.add('show');
-    document.querySelector('.progress-bar-wrap').style.display = 'none';
-    window.scrollTo({top: 0, behavior: 'smooth'});
+
+    setTimeout(() => {
+      document.getElementById('page2').classList.remove('active');
+      document.getElementById('successPage').classList.add('show');
+      document.querySelector('.progress-bar-wrap').style.display = 'none';
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 1000);
   }
 
+  
   // Init
   updateProgress(1);
   loadProgress();
 </script>
+
+<form
+  id="googleForm"
+  action="https://docs.google.com/forms/d/e/1FAIpQLScHLd6iu-_7KY4P8Y3JGJRjbvn1TlIBH83tqktHM55xtq-nAQ/formResponse"
+  method="POST"
+  target="hidden_iframe"
+  style="display:none;"
+>
+</form>
+<iframe name="hidden_iframe" style="display:none;"></iframe>
 </body>
 </html>
