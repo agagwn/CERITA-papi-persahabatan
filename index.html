@@ -551,7 +551,8 @@ function submitForm() {
   p.append('entry.1280060488',  document.getElementById('q_istirahat').value||d.istirahat||'');
   p.append('entry.1453868785',  document.getElementById('q_syukur').value||d.syukur||'');
   p.append('entry.2030962328',  document.getElementById('q_berhasil').value||d.berhasil||'');
-  p.append('entry.382372806', d.cerita_bebas || '');
+const cb = document.getElementById('q_cerita_bebas');
+p.append('entry.382372806', (cb ? cb.value : '').trim());
   fetch(FORM_URL, {
     method: 'POST', mode: 'no-cors',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
