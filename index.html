@@ -451,7 +451,7 @@
 </div>
 
 <script>
-const KEY = 'cerita_v3';
+const KEY = 'cerita_v4';
 const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScHLd6iu-_7KY4P8Y3JGJRjbvn1TlIBH83tqktHM55xtq-nAQ/formResponse';
 
 // ── Storage ──
@@ -517,6 +517,9 @@ function goPage2() {
 
 // ── Submit ──
 function submitForm() {
+  // Paksa simpan cerita bebas ke storage sebelum apapun
+  const elCerita = document.getElementById('q_cerita_bebas');
+  if (elCerita) save('cerita_bebas', elCerita.value);
   const d = load();
   const p = new URLSearchParams();
   // ⚠️ Ganti entry ID di bawah dengan yang asli dari Google Form kamu
@@ -538,10 +541,7 @@ function submitForm() {
   p.append('entry.1453868785',  document.getElementById('q_syukur').value||d.syukur||'');
   p.append('entry.2030962328',  document.getElementById('q_berhasil').value||d.berhasil||'');
   // cerita bebas — ambil langsung dari DOM saat submit
-  const elCerita = document.getElementById('q_cerita_bebas');
-  const ceritaVal = elCerita ? elCerita.value.trim() : '';
-  console.log('CERITA BEBAS VALUE:', ceritaVal); // debug
-  p.append('entry.382372806', ceritaVal || d.cerita_bebas || ' ');
+  p.append('entry.382372806', d.cerita_bebas || '');
 
   fetch(FORM_URL, {
     method: 'POST', mode: 'no-cors',
