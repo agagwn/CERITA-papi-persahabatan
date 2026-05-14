@@ -376,7 +376,7 @@
     </div>
 
     <div class="btn-row">
-      <button class="btn btn-next" onclick="goPage2()">Lanjut</button>
+      <button class="btn btn-next" onclick="goPage2()">Lanjut ke Halaman 2 →</button>
     </div>
 
   </div>
@@ -445,6 +445,9 @@
   <div class="success-glyph">✦</div>
   <div class="success-title">Makasih, <em id="successName">kawan</em>.</div>
   <p class="success-msg">Ceritamu sudah sampai.<br/>Semoga kamu terus berani jujur sama diri sendiri.</p>
+  <div style="margin-top:2.5rem;">
+    <button class="btn btn-next" style="max-width:260px;margin:0 auto;display:block;" onclick="resetForm()">Cerita Lagi ✦</button>
+  </div>
 </div>
 
 <script>
@@ -534,7 +537,8 @@ function submitForm() {
   p.append('entry.1280060488',  document.getElementById('q_istirahat').value||d.istirahat||'');
   p.append('entry.1453868785',  document.getElementById('q_syukur').value||d.syukur||'');
   p.append('entry.2030962328',  document.getElementById('q_berhasil').value||d.berhasil||'');
-  p.append('entry.382372806',   document.getElementById('q_cerita_bebas').value||d.cerita_bebas||'');
+  const ceritaVal = document.getElementById('q_cerita_bebas') ? document.getElementById('q_cerita_bebas').value : '';
+  p.append('entry.382372806', ceritaVal || d.cerita_bebas || '');
 
   fetch(FORM_URL, {
     method: 'POST', mode: 'no-cors',
@@ -550,6 +554,28 @@ function submitForm() {
     localStorage.removeItem(KEY);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+}
+
+// ── Reset ──
+function resetForm() {
+  localStorage.removeItem(KEY);
+  document.getElementById('successScreen').classList.remove('active');
+  document.getElementById('mainHeader').style.display = '';
+  // reset semua field
+  document.getElementById('q_nama').value = '';
+  document.getElementById('q_kelas').value = '';
+  ['q3','q4','q5','q6','q7','q8','q9','q10'].forEach(name => {
+    document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+      r.checked = false; r.closest('.opt').classList.remove('selected');
+    });
+  });
+  ['q_refleksi','q_pertanyaan','q_musik','q_jujur','q_istirahat','q_syukur','q_berhasil','q_cerita_bebas'].forEach(id => {
+    const el = document.getElementById(id); if(el) el.value = '';
+  });
+  document.getElementById('page-2').classList.remove('active');
+  document.getElementById('page-1').classList.add('active');
+  setProgress(0);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ── Restore ──
