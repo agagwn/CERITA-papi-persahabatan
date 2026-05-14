@@ -478,9 +478,19 @@ function clearRadio(name) {
 }
 
 // ── Auto-save text ──
-['q_nama','q_refleksi','q_pertanyaan','q_musik','q_jujur','q_istirahat','q_syukur','q_berhasil'].forEach(id => {
+['q_nama','q_refleksi','q_pertanyaan','q_musik','q_jujur','q_istirahat','q_syukur','q_berhasil'].ch(id => {
   const el = document.getElementById(id); if (!el) return;
-  const km = {q_nama:'nama',q_refleksi:'refleksi',q_pertanyaan:'pertanyaan',q_musik:'musik',q_jujur:'jujur',q_istirahat:'istirahat',q_syukur:'syukur',q_berhasil:'berhasil',q_cerita_bebas:'cerita_bebas'};
+  const km = {
+  q_nama:'nama',
+  q_refleksi:'refleksi',
+  q_pertanyaan:'pertanyaan',
+  q_musik:'musik',
+  q_jujur:'jujur',
+  q_istirahat:'istirahat',
+  q_syukur:'syukur',
+  q_berhasil:'berhasil',
+  q_cerita_bebas:'cerita_bebas'
+};
   el.addEventListener('input', () => save(km[id], el.value));
 });
 document.getElementById('q_kelas').addEventListener('change', function() { save('kelas', this.value); });
@@ -513,11 +523,6 @@ function goPage2() {
   setProgress(50);
   save('_page', 2);
   // pasang listener cerita bebas di sini karena element baru visible
-  const elCB = document.getElementById('q_cerita_bebas');
-  if (elCB && !elCB._listenerAdded) {
-    elCB.addEventListener('input', () => save('cerita_bebas', elCB.value));
-    elCB._listenerAdded = true;
-  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -546,9 +551,7 @@ function submitForm() {
   p.append('entry.1280060488',  document.getElementById('q_istirahat').value||d.istirahat||'');
   p.append('entry.1453868785',  document.getElementById('q_syukur').value||d.syukur||'');
   p.append('entry.2030962328',  document.getElementById('q_berhasil').value||d.berhasil||'');
-  const _cb = document.getElementById('q_cerita_bebas');
-  p.append('entry.382372806', _cb ? _cb.value : '');
-
+  p.append('entry.382372806', d.cerita_bebas || '');
   fetch(FORM_URL, {
     method: 'POST', mode: 'no-cors',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -578,7 +581,14 @@ function resetForm() {
       r.checked = false; r.closest('.opt').classList.remove('selected');
     });
   });
-  ['q_refleksi','q_pertanyaan','q_musik','q_jujur','q_istirahat','q_syukur','q_berhasil','q_cerita_bebas'].forEach(id => {
+  ['q_refleksi',
+   'q_pertanyaan',
+   'q_musik','q_jujur',
+   'q_istirahat',
+   'q_syukur',
+   'q_berhasil',
+   'q_cerita_bebas'
+  ].forEach(id => {
     const el = document.getElementById(id); if(el) el.value = '';
   });
   document.getElementById('page-2').classList.remove('active');
