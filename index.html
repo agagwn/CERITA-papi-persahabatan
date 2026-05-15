@@ -451,8 +451,8 @@
 </div>
 
 <script>
-const KEY = 'cerita_v8';
-const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScHLd6iu-_7KY4P8Y3JGJRjbvn1TlIBH83tqktHM55xtq-nAQ/formResponse';
+const KEY = 'cerita_v10';
+const FORM_URL = 'https://script.google.com/macros/s/AKfycbxn_7VDWfYqdiLldLxEkg-dA1CPff0CmeeHFYJOhEWHOC3W23HG4GoCHzUJUtYMidP9xA/exec';
 
 // ── Storage ──
 function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch { return {}; } }
@@ -549,10 +549,32 @@ function submitForm() {
   const _cb = document.getElementById('q_cerita_bebas');
   p.append('entry.382372806', _cb ? _cb.value : '');
 
+  // kirim via Apps Script sebagai JSON
+  const payload = {
+    nama: d.nama||'',
+    kelas: d.kelas||'',
+    q3: d.q3||'',
+    q4: d.q4||'',
+    q5: d.q5||'',
+    q6: d.q6||'',
+    q7: d.q7||'',
+    q8: d.q8||'',
+    q9: d.q9||'',
+    q10: d.q10||'',
+    refleksi: document.getElementById('q_refleksi').value||d.refleksi||'',
+    pertanyaan: document.getElementById('q_pertanyaan').value||d.pertanyaan||'',
+    musik: document.getElementById('q_musik').value||d.musik||'',
+    jujur: document.getElementById('q_jujur').value||d.jujur||'',
+    istirahat: document.getElementById('q_istirahat').value||d.istirahat||'',
+    syukur: document.getElementById('q_syukur').value||d.syukur||'',
+    berhasil: document.getElementById('q_berhasil').value||d.berhasil||'',
+    cerita_bebas: document.getElementById('q_cerita_bebas').value||d.cerita_bebas||''
+  };
   fetch(FORM_URL, {
-    method: 'POST', mode: 'no-cors',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: p.toString()
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain' },
+    body: JSON.stringify(payload)
   }).finally(() => {
     document.getElementById('page-2').classList.remove('active');
     document.getElementById('mainHeader').style.display = 'none';
